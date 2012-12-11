@@ -83,7 +83,12 @@ sub hdlr_lookup_object {
     # Build inside
     my $builder = $ctx->stash('builder');
     my $tokens = $ctx->stash('tokens');
+    my $obj_blog_id = $obj->has_column('blog_id') ? $obj->blog_id : 0;
+    my $obj_blog = $obj_blog_id
+        ? ( MT->model('blog')->load($obj_blog_id) || MT->model('website')->load($obj_blog_id) )
+        : undef;
 
+    local $ctx->{__stash}{blog} = $obj_blog;
     local $ctx->{__stash}{$class} = $obj;
     defined( my $out = $builder->build($ctx, $tokens, $cond) )
         or return $ctx->error($builder->errstr);
