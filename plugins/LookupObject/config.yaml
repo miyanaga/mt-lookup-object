@@ -1,0 +1,17 @@
+name: <__trans phrase="Lookup Object">
+id: LookupObject
+key: LookupObject
+author: Kunihiko Miyanaga
+author_link: http://www.ideamans.com/
+description: <__trans phrase="Provides block tags to look up an object by variable ways not supported in standard Movable Type.">
+version: 0.50
+
+tags:
+    block:
+        LookupObject: $LookupObject::MT::LookupObject::Tags::hdlr_lookup_object
+        LookupEntry: $LookupObject::MT::LookupObject::Tags::hdlr_lookup_entry
+        LookupPage: $LookupObject::MT::LookupObject::Tags::hdlr_lookup_page
+
+l10n_lexicon:
+    Lookup Object: オブジェクトのルックアップ
+    Provides block tags to look up an object by variable ways not supported in Movable Type.: 標準のMovable Typeではサポートされていない様々な方法でオブジェクトを参照するブロックタグを提供します。
