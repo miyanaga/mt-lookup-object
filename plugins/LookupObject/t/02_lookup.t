@@ -40,6 +40,8 @@ test_common_website(
 <mt:LookupEntry basename="entry_2" blog_id="$sid"><mt:EntryTitle></mt:LookupEntry>
 <mt:LookupEntry basename="entry_3" blog_id="$bid" pre_fetch="1"><mt:EntryTitle></mt:LookupEntry>
 <mt:LookupEntry basename="entry_4" blog_id="$bid" pre_fetch="1"><mt:EntryTitle></mt:LookupEntry>
+<mt:setvar name="title" value="outside">
+<mt:var name="title"><mt:LookupEntry basename="entry_1" as_vars="1"><mt:var name="title"></mt:LookupEntry><mt:var name="title">
 },
                     test => sub {
                         my %args = @_;
@@ -50,6 +52,8 @@ Entry 2
 
 Entry 3
 Entry 4
+
+outsideEntry 1outside
 }, 'Lookup some entries.';
 
                         ok $args{ctx}->{__stash}{__lookup_tables}{entry}{$bid}{basename}, 'Pre fetch table created';

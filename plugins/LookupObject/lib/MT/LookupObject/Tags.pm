@@ -20,6 +20,7 @@ sub hdlr_lookup_object {
     my $blog_id = delete $args->{blog_id};
     $blog_id = undef unless $model->has_column('blog_id');
     my $pre_fetch = delete $args->{pre_fetch};
+    my $as_vars = delete $args->{as_vars};
 
     # Sort args
     my %query_args;
@@ -88,6 +89,13 @@ sub hdlr_lookup_object {
         ? ( MT->model('blog')->load($obj_blog_id) || MT->model('website')->load($obj_blog_id) )
         : undef;
 
+    my @locals;
+    if ( $as_vars ) {
+        @locals = sort { $a cmp $b } @{$model->column_names};
+    }
+
+    my $stash_vars = $ctx->{__stash}{vars};
+    local @$stash_vars{@locals} = map { $obj->$_ || '' } @locals;
     local $ctx->{__stash}{blog} = $obj_blog;
     local $ctx->{__stash}{$class} = $obj;
     defined( my $out = $builder->build($ctx, $tokens, $cond) )
